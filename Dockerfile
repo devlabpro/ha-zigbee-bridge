@@ -1,14 +1,12 @@
-# См. статью по ссылке https://aka.ms/customizecontainer, чтобы узнать как настроить контейнер отладки и как Visual Studio использует этот Dockerfile для создания образов для ускорения отладки.
-
-# Этот этап используется при запуске из VS в быстром режиме (по умолчанию для конфигурации отладки)
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+ARG BUILD_FROM
+FROM $BUILD_FROM
 USER $APP_UID
 WORKDIR /app
 EXPOSE 5546
 
 
 # Этот этап используется для сборки проекта службы
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM $BUILD_FROM AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ZigbeeBridgeAddon/ZigbeeBridgeAddon/ZigbeeBridgeAddon.csproj", "ZigbeeBridgeAddon/ZigbeeBridgeAddon/"]
