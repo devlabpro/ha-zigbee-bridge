@@ -21,7 +21,7 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./ZigbeeBridgeAddon.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Этот этап используется в рабочей среде или при запуске из VS в обычном режиме (по умолчанию, когда конфигурация отладки не используется)
-FROM base AS final
+FROM publish AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ZigbeeBridgeAddon.dll"]
