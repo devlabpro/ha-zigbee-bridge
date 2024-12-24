@@ -28,11 +28,6 @@ try
         Environment.SetEnvironmentVariable("HomeAssistant__Host", "host.docker.internal");
     }
 
-    foreach (DictionaryEntry e in Environment.GetEnvironmentVariables())
-    {
-        Console.WriteLine(e.Key + ":" + e.Value);
-    }
-
     var nlogConfig = new LoggingConfiguration();
 
     nlogConfig.AddRule(minLevel: NLog.LogLevel.Trace, maxLevel: NLog.LogLevel.Fatal,
