@@ -25,6 +25,12 @@ try
     if (!string.IsNullOrEmpty(token))
     {
         Environment.SetEnvironmentVariable("HomeAssistant__Token", token);
+        Environment.SetEnvironmentVariable("HomeAssistant__Host", "host.docker.internal");
+    }
+
+    foreach (DictionaryEntry e in Environment.GetEnvironmentVariables())
+    {
+        Console.WriteLine(e.Key + ":" + e.Value);
     }
 
     var nlogConfig = new LoggingConfiguration();
