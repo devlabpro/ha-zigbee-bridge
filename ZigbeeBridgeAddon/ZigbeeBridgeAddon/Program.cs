@@ -7,6 +7,7 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 using Radzen;
+using System.Collections;
 using System.Reflection;
 using ZigbeeBridgeAddon.Components;
 using ZigbeeBridgeAddon.Data;
@@ -19,6 +20,11 @@ try
     builder.Services.AddDbContext<DevicesStore>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DevicesStoreConnectionString"))
     );
+
+    foreach (DictionaryEntry e in Environment.GetEnvironmentVariables())
+    {
+        Console.WriteLine(e.Key + ":" + e.Value);
+    }
 
     var nlogConfig = new LoggingConfiguration();
 
