@@ -1,0 +1,29 @@
+name: "Zigbee bridge"
+description: "Addon для создания виртуальных Zigbee устройств для возможности взаимодействия с HA через другие zigbee шлюзы"
+version: 0.0.1
+slug: "ha-zigbee-bridge"
+uart: true
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: services
+panel_icon: mdi:zigbee
+panel_title: Zigbee bridge
+ingress: true
+timeout: 30
+map:
+  - addon_config:rw
+  - share
+options:
+  ZB_ESP_DEVICE_PORT: ""
+schema:
+  ZB_ESP_DEVICE_PORT: "str?"
+ports:
+  5546/tcp: null
+hassio_api: true
+hassio_role: "default"
+homeassistant_api: true
