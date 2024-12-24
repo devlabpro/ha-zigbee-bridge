@@ -21,9 +21,10 @@ try
         options.UseSqlite(builder.Configuration.GetConnectionString("DevicesStoreConnectionString"))
     );
 
-    foreach (DictionaryEntry e in Environment.GetEnvironmentVariables())
+    var token = Environment.GetEnvironmentVariable("SUPERVISOR_TOKEN");
+    if (!string.IsNullOrEmpty(token))
     {
-        Console.WriteLine(e.Key + ":" + e.Value);
+        Environment.SetEnvironmentVariable("HomeAssistant__Token", token);
     }
 
     var nlogConfig = new LoggingConfiguration();
