@@ -1,0 +1,42 @@
+﻿@using NetDaemon.HassModel.Entities
+@using ZigbeeBridgeAddon.Components.Tabs.Devices.Models
+
+<RadzenRow Gap="1rem">
+    <RadzenColumn Size="12">
+        <RadzenTemplateForm TItem="AddDeviceFormModel" Data=@Model Submit=@OnSubmit>
+            <RadzenStack>
+                <RadzenFormField Text="Channel number" Variant="@Variant.Text">
+                    <ChildContent>
+                        <RadzenNumeric Name="Channel" @bind-Value=@Model.Channel Min="1" Max="200" Step="1" Style="display: block; width: 100%;" />
+                    </ChildContent>
+                    <Helper>
+                        <RadzenCustomValidator Component="Channel" Validator=@ValidateChannel Text="Channel number already exists" />
+                        <RadzenRequiredValidator Component="Channel" Text="Channel number is required." />
+                    </Helper>
+                </RadzenFormField>
+                <RadzenFormField Text="HA device" Variant="@Variant.Text">
+                    <ChildContent>
+                        <RadzenDropDown AllowClear="true" @bind-Value=Model.DeviceId
+                                        LoadData=@OnLoadDevices AllowFiltering="true"
+                                        Data=@HADevices TextProperty="@nameof(Entity.EntityId)" ValueProperty="@nameof(Entity.EntityId)" Name="DeviceId">
+                            <Template Context="device">
+                                @device.Registration.Device.Name<br />
+                                <RadzenText class="rz-color-base-700" TextStyle="TextStyle.Caption">@device.Area @device.EntityId</RadzenText>
+                            </Template>
+                            <ValueTemplate Context="device">
+                                @device.Registration.Device.Name (<RadzenText class="rz-color-base-700" TextStyle="TextStyle.Caption">@device.Area @device.EntityId</RadzenText>)
+                            </ValueTemplate>
+                        </RadzenDropDown>
+                    </ChildContent>
+                    <Helper>
+                        <RadzenRequiredValidator Component="DeviceId" Text="Device is required." />
+                    </Helper>
+                </RadzenFormField>
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Gap="1rem" Wrap="FlexWrap.Wrap" class="rz-p-6">
+                <RadzenButton Variant="Variant.Outlined" Click="@((args) => dialogService.Close())" Text="Cancel" ButtonStyle="ButtonStyle.Secondary" />
+                <RadzenButton Variant="Variant.Outlined" ButtonType="ButtonType.Submit" Text="Save" ButtonStyle="ButtonStyle.Primary" />
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenColumn>
+</RadzenRow>

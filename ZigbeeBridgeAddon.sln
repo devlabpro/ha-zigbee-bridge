@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigbeeBridgeAddon", "ZigbeeBridgeAddon\ZigbeeBridgeAddon\ZigbeeBridgeAddon.csproj", "{A261E1E9-59CA-4B78-9A75-0FB7E11F4AD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigbeeBridgeAddon.SerialClient", "ZigbeeBridgeAddon.SerialClient\ZigbeeBridgeAddon.SerialClient.csproj", "{DEEC7F63-E7FD-428D-B160-FE19C1E44CC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A261E1E9-59CA-4B78-9A75-0FB7E11F4AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A261E1E9-59CA-4B78-9A75-0FB7E11F4AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A261E1E9-59CA-4B78-9A75-0FB7E11F4AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A261E1E9-59CA-4B78-9A75-0FB7E11F4AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEEC7F63-E7FD-428D-B160-FE19C1E44CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEEC7F63-E7FD-428D-B160-FE19C1E44CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEEC7F63-E7FD-428D-B160-FE19C1E44CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEEC7F63-E7FD-428D-B160-FE19C1E44CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

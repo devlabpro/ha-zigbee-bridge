@@ -1,0 +1,53 @@
+﻿@using ZigbeeBridgeAddon.Data.Entities
+
+<RadzenRow JustifyContent="@JustifyContent.End" AlignItems="@AlignItems.Center" Gap="1rem" class="rz-border-0 rz-mb-5">
+    <RadzenButton Click=@ShowAddDeviceDialog Text="Add new device" Icon="add_circle" ButtonStyle="ButtonStyle.Primary" />
+</RadzenRow>
+<RadzenDataGrid @ref=grid Data="@Devices" AllowVirtualization="true" AllowFiltering="false" AllowSorting="false" Style="height:669px">
+    <Columns>
+        <RadzenDataGridColumn Property="" Title="Entity">
+            <Template Context="device">
+                @if (!string.IsNullOrEmpty(device.Name))
+                {
+                    @device.Name
+                    <br />
+                    @if(!string.IsNullOrEmpty(device.Area))
+                    {
+                        <RadzenText class="rz-color-base-700" TextStyle="TextStyle.Caption">@device.Area @device.Id</RadzenText>
+                    } 
+                    else
+                    {
+                        <RadzenText class="rz-color-base-700" TextStyle="TextStyle.Caption">@device.Id</RadzenText>
+                    }
+                }
+                else
+                {
+                    @device.Id
+                    <br />
+                    @if (!string.IsNullOrEmpty(device.Area))
+                    {
+                        <RadzenText class="rz-color-base-700" TextStyle="TextStyle.Caption">@device.Area</RadzenText>
+                    }
+                }
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(Device.ChannelNumber)" Title="Channel" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn Property="@nameof(Device.IsActivated)" Title="Activated" TextAlign="TextAlign.Center">
+            <Template Context="device">
+                <div style="padding: 10px; margin: 0 auto">
+                    <RadzenSwitch Value=@device.IsActivated Change=@(args => OnStateChange(device.Id, args)) InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "Switch value" }})" />
+                </div>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="" Title="State" TextAlign="TextAlign.Center">
+            <Template Context="device">
+                <DeviceStateCellLayout Device=@device />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="" Title="" TextAlign="TextAlign.Right">
+            <Template Context="device">
+                <RadzenButton Variant="Variant.Flat" Click=@(args => OnRemove(device.Id)) Text="Remove" ButtonStyle="ButtonStyle.Danger" />
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>

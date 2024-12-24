@@ -1,0 +1,19 @@
+﻿@page "/"
+@using ZigbeeBridgeAddon.Components.Tabs.Devices
+@using ZigbeeBridgeAddon.Components.Tabs.EspDevice
+@rendermode InteractiveServer
+<PageTitle>Zigbee bridge addon for Home Assistant</PageTitle>
+<RadzenTabs RenderMode="TabRenderMode.Server" @bind-SelectedIndex=@selectedIndex>
+    <Tabs>
+        <RadzenTabsItem Text="Devices">
+            <DevicesTabLayout />
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Esp device">
+            <EspDeviceLayout />
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
+
+@code {
+    int selectedIndex = 0;
+}

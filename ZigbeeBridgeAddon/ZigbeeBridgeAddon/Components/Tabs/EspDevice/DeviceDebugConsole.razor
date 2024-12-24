@@ -1,0 +1,29 @@
+﻿@using Radzen
+@using System.Text.RegularExpressions
+@using System.Web
+@inject IJSRuntime JSRuntime
+
+<RadzenCard Variant="Variant.Outlined" class="rz-mt-4">
+    <RadzenStack Orientation="Orientation.Vertical" Gap="0.5rem">
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceBetween">
+            <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.P" class="rz-m-0">ESP device log</RadzenText>
+            <RadzenButton Click=@OnClearClick Text="Clear log" ButtonStyle="ButtonStyle.Base" Variant="Variant.Flat" Size="ButtonSize.Small" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Vertical" Gap="0" ID="log-console" class="rz-pt-1" Style="border-top: var(--rz-grid-cell-border); min-height: 2rem; max-height: 48rem; overflow: auto;">
+            @foreach (var message in messages)
+            {
+                <RadzenAlert ShowIcon="false" Variant="Variant.Flat" AlertStyle="message.AlertStyle" Size="AlertSize.ExtraSmall" Shade="Shade.Lighter" AllowClose="false" Style="font-size: 0.75rem">
+                    <RadzenRow JustifyContent="@JustifyContent.Start" AlignItems="@AlignItems.Start" Gap="1rem">
+                        <RadzenColumn Style="min-width: 80px" Size="2">
+                            <span Style="opacity: 0.6;">@message.Date.ToString("HH:mm:ss.ff")</span>
+                        </RadzenColumn>
+                        <RadzenColumn>
+                            @((MarkupString)Regex.Replace(HttpUtility.HtmlEncode(@message.Text), "\r?\n|\r", "<br />"))
+                        </RadzenColumn>
+                    </RadzenRow>
+                </RadzenAlert>
+            }
+        </RadzenStack>
+    </RadzenStack>
+</RadzenCard>
+

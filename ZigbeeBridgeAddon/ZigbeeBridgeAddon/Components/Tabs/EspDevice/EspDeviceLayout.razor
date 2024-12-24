@@ -1,0 +1,6 @@
+﻿<RadzenRow JustifyContent="@JustifyContent.End" AlignItems="@AlignItems.Center" Gap="1rem" class="rz-border-0 rz-mb-5">
+    <RadzenButton Click=@UpdateDevice Disabled=true Text="Update firmware" Icon="build" ButtonStyle="ButtonStyle.Success" />
+    <RadzenButton Click=@RebootDevice Text="Reboot ESP device" Icon="autorenew" ButtonStyle="ButtonStyle.Danger" />
+</RadzenRow>
+
+<DeviceDebugConsole />
