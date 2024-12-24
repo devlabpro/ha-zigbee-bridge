@@ -1,12 +1,11 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM mcr.microsoft.com/dotnet/sdk:9.0
 USER $APP_UID
 WORKDIR /app
 EXPOSE 5546
 
 
 # Этот этап используется для сборки проекта службы
-FROM $BUILD_FROM AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ZigbeeBridgeAddon/ZigbeeBridgeAddon/ZigbeeBridgeAddon.csproj", "ZigbeeBridgeAddon/ZigbeeBridgeAddon/"]
