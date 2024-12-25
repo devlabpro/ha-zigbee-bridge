@@ -1,4 +1,4 @@
-version: 0.0.11
+version: 0.0.12
 slug: "ha-zigbee-bridge"
 name: "Zigbee bridge"
 description: "Addon для создания виртуальных Zigbee устройств для возможности взаимодействия с HA через другие zigbee шлюзы"
@@ -23,7 +23,7 @@ options:
 panel_icon: mdi:zigbee
 panel_title: Zigbee bridge
 ports:
-  8081/tcp: null
+  8099/tcp: null
 schema:
   ZB_ESP_DEVICE_PORT: "str?"
 startup: services
