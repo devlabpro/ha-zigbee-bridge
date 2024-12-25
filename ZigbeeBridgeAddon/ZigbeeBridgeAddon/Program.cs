@@ -31,7 +31,8 @@ try
     if (!string.IsNullOrEmpty(token))
     {
         haSettings.Token = token;
-        haSettings.Host = "host.docker.internal";
+        haSettings.Host = "supervisor";
+        haSettings.Port = 80;
     }
 
     var nlogConfig = new LoggingConfiguration();
@@ -53,7 +54,8 @@ try
             config.AddInMemoryCollection(new Dictionary<string, string?>
             {
                 { "HomeAssistant:Host", haSettings.Host },
-                { "HomeAssistant:Token", haSettings.Token }
+                { "HomeAssistant:Token", haSettings.Token },
+                { "HomeAssistant:Port", haSettings.Port }
             });
         })
         .ConfigureServices((_, services) =>
