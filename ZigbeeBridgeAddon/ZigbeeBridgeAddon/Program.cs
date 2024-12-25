@@ -55,7 +55,7 @@ try
             {
                 { "HomeAssistant:Host", haSettings.Host },
                 { "HomeAssistant:Token", haSettings.Token },
-                { "HomeAssistant:Port", haSettings.Port }
+                { "HomeAssistant:Port", haSettings.Port.ToString() }
             });
         })
         .ConfigureServices((_, services) =>
