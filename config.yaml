@@ -1,4 +1,4 @@
-version: 0.0.13
+version: 0.0.14
 slug: "ha-zigbee-bridge"
 name: "Zigbee bridge"
 description: "Addon для создания виртуальных Zigbee устройств для возможности взаимодействия с HA через другие zigbee шлюзы"

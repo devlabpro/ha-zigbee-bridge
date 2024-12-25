@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.EntityFrameworkCore;
 using NetDaemon.Client.Settings;
 using NetDaemon.Extensions.Scheduler;
@@ -15,6 +16,8 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
+
     builder.Services.AddDbContext<DevicesStore>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DevicesStoreConnectionString"))
     );
@@ -23,10 +26,10 @@ try
     var haSettings = new HomeAssistantSettings();
     if (!string.IsNullOrEmpty(token))
     {
-        haSettings.Token = token;
-        haSettings.Host = "supervisor";
-        haSettings.WebsocketPath = "core/websocket";
-        haSettings.Port = 80;
+        haSettings.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiMTBlMTUwMWIxMTY0YmM2YTBlNzlhZTBlNWY5M2RmYyIsImlhdCI6MTczNTEzNzc4NCwiZXhwIjoyMDUwNDk3Nzg0fQ.ATSSg7FH9wsQRtMaGqkZIKZtYds7wptzUJUxPkGIy9g";
+        haSettings.Host = "homeassistant.local";
+        haSettings.WebsocketPath = "api/websocket";
+        haSettings.Port = 8123;
     }
 
     foreach (DictionaryEntry e in Environment.GetEnvironmentVariables())
