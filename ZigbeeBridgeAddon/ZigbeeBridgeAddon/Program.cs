@@ -32,7 +32,13 @@ try
     {
         haSettings.Token = token;
         haSettings.Host = "supervisor";
+        haSettings.WebsocketPath = "core/websocket";
         haSettings.Port = 80;
+    }
+
+    foreach (DictionaryEntry e in Environment.GetEnvironmentVariables())
+    {
+        Console.WriteLine(e.Key + ":" + e.Value);
     }
 
     var nlogConfig = new LoggingConfiguration();
@@ -55,6 +61,7 @@ try
             {
                 { "HomeAssistant:Host", haSettings.Host },
                 { "HomeAssistant:Token", haSettings.Token },
+                { "HomeAssistant:WebsocketPath", haSettings.WebsocketPath },
                 { "HomeAssistant:Port", haSettings.Port.ToString() }
             });
         })
