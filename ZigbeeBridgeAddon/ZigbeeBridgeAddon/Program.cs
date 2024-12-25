@@ -1,13 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NetDaemon.AppModel;
+using NetDaemon.Client.Extensions;
+using NetDaemon.Client.Settings;
 using NetDaemon.Extensions.Logging;
 using NetDaemon.Extensions.Scheduler;
+using NetDaemon.HassModel;
 using NetDaemon.Runtime;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using Radzen;
 using System.Collections;
+using System.Globalization;
 using System.Reflection;
 using ZigbeeBridgeAddon.Components;
 using ZigbeeBridgeAddon.Data;
@@ -22,10 +27,11 @@ try
     );
 
     var token = Environment.GetEnvironmentVariable("SUPERVISOR_TOKEN");
+    var haSettings = new HomeAssistantSettings();
     if (!string.IsNullOrEmpty(token))
     {
-        Environment.SetEnvironmentVariable("HomeAssistant__Token", token);
-        Environment.SetEnvironmentVariable("HomeAssistant__Host", "host.docker.internal");
+        haSettings.Token = token;
+        haSettings.Host = "host.docker.internal";
     }
 
     var nlogConfig = new LoggingConfiguration();
@@ -39,11 +45,19 @@ try
     LogManager.Configuration = nlogConfig;
 
     builder.Host
+        .UseNetDaemonAppSettings()
         .UseNetDaemonDefaultLogging()
         .UseNetDaemonRuntime()
+        .ConfigureAppConfiguration((_, config) =>
+        {
+            config.AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                { "HomeAssistant:Host", haSettings.Host },
+                { "HomeAssistant:Token", haSettings.Token }
+            });
+        })
         .ConfigureServices((_, services) =>
             services
-                .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()
         );
