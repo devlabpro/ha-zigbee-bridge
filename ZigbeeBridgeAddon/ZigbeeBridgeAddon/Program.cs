@@ -18,7 +18,17 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
-    foreach (var path in Directory.GetFiles(@"/"))
+    foreach (var path in Directory.GetFiles(@"/data"))
+    {
+        Console.WriteLine(path); // full path
+        Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
+    }
+    foreach (var path in Directory.GetFiles(@"/config"))
+    {
+        Console.WriteLine(path); // full path
+        Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
+    }
+    foreach (var path in Directory.GetFiles(@"/addon_config"))
     {
         Console.WriteLine(path); // full path
         Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
@@ -36,11 +46,6 @@ try
         haSettings.Host = "supervisor";
         haSettings.WebsocketPath = "core/websocket";
         haSettings.Port = 80;
-    }
-
-    foreach (DictionaryEntry e in Environment.GetEnvironmentVariables())
-    {
-        Console.WriteLine(e.Key + ":" + e.Value);
     }
 
     var nlogConfig = new LoggingConfiguration();
