@@ -22,16 +22,16 @@ try
     {
         Console.WriteLine(path); // full path
         Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
+        string[] fileLines = System.IO.File.ReadAllLines(path);
+        if (fileLines != null)
+            foreach (var line in fileLines)
+            {
+                Console.WriteLine(line);
+            }
     }
-    foreach (var path in Directory.GetFiles(@"/config"))
+    foreach (var path in Directory.GetDirectories(@"/"))
     {
         Console.WriteLine(path); // full path
-        Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
-    }
-    foreach (var path in Directory.GetFiles(@"/addon_config"))
-    {
-        Console.WriteLine(path); // full path
-        Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
     }
 
     builder.Services.AddDbContext<DevicesStore>(options =>
