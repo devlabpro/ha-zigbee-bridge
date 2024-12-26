@@ -4,13 +4,14 @@ using NetDaemon.Client.Settings;
 using NetDaemon.Extensions.Logging;
 using NetDaemon.Extensions.Scheduler;
 using NetDaemon.Runtime;
+using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using Radzen;
-using System.Collections;
 using ZigbeeBridgeAddon.Components;
 using ZigbeeBridgeAddon.Data;
+using ZigbeeBridgeAddon.SerialClient.Models;
 using ZigbeeBridgeAddon.Services;
 
 try
@@ -18,20 +19,11 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
-    foreach (var path in Directory.GetFiles(@"/data"))
+    if (File.Exists(@"/data/options.json"))
     {
-        Console.WriteLine(path); // full path
-        Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
-        string[] fileLines = System.IO.File.ReadAllLines(path);
-        if (fileLines != null)
-            foreach (var line in fileLines)
-            {
-                Console.WriteLine(line);
-            }
-    }
-    foreach (var path in Directory.GetDirectories(@"/"))
-    {
-        Console.WriteLine(path); // full path
+        var options = File.ReadAllText(@"/data/options.json");
+        var serialSettings = JsonConvert.DeserializeObject<SerialSettings>(options);
+        builder.Services.AddSingleton(serialSettings);
     }
 
     builder.Services.AddDbContext<DevicesStore>(options =>

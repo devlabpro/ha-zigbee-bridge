@@ -16,10 +16,10 @@ namespace ZigbeeBridgeAddon.Services
         private readonly SerialPortClient _portClient;
         public ObservableCollection<SerialMessage> Messages { get; private set; } = [];
 
-        public SerialClientService()
+        public SerialClientService(SerialSettings settings)
         {
             _portClient = new SerialPortClient();
-            _portClient.SetPort("COM5");
+            _portClient.SetPort(settings.Port);
             _portClient.ConnectionStatusChanged += ConnectionStatusChanged;
             _portClient.MessageReceived += MessageReceived;
             _portClient.Connect();
