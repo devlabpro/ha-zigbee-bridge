@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.EntityFrameworkCore;
 using NetDaemon.Client.Settings;
+using NetDaemon.Extensions.Logging;
 using NetDaemon.Extensions.Scheduler;
 using NetDaemon.Runtime;
 using NLog;
@@ -17,6 +18,11 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
+    foreach (var path in Directory.GetFiles(@"/"))
+    {
+        Console.WriteLine(path); // full path
+        Console.WriteLine(System.IO.Path.GetFileName(path)); // file name
+    }
 
     builder.Services.AddDbContext<DevicesStore>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DevicesStoreConnectionString"))
@@ -49,6 +55,7 @@ try
 
     builder.Host
         .UseNetDaemonAppSettings()
+        .UseNetDaemonDefaultLogging()
         .UseNetDaemonRuntime()
         .ConfigureAppConfiguration((_, config) =>
         {
